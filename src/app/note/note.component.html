@@ -1,0 +1,66 @@
+<style>
+  .custom-card {
+    background-color: lightblue; /* Replace with your desired theme color */
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  .custom-card2 {
+    background-color: lightpink; /* Replace with your desired theme color */
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+</style>
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+      <h1 class="btn btn-warning">My Notes</h1>
+    </div>
+  </div>
+
+  <!-- Add a form for creating new notes -->
+  <div class="row">
+    <div class="col-md-6 mx-auto" >
+      <form [formGroup]="noteForm" (submit)="createNote()">
+        <!-- Form fields for creating new notes -->
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" id="title" formControlName="title"  required>
+        </div>
+        <div class="form-group">
+          <label for="content">Content:</label>
+          <textarea class="form-control" id="content" formControlName="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Note</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Display All Notes -->
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card custom-card" *ngFor="let note of allNotes">
+        <div class="card-body">
+          <h5 class="card-title">{{ note.title }}</h5>
+          <p class="card-text">{{ note.content }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <small class="text-muted">Created At: {{ note.createdAt | date: 'medium' }}</small>
+              <small class="text-muted">Last Updated: {{ note.updatedAt | date: 'medium' }}</small>
+            </div>
+            <div>
+              <button class="btn btn-danger btn-sm" (click)="deleteNote(note.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
